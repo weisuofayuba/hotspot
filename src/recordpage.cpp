@@ -383,6 +383,14 @@ RecordPage::RecordPage(QWidget *parent)
                     ui->startRecordingButton->setChecked(true);
                 }
             });
+
+    // FIXME: detect features dynamically, disable and add useful tooltip instead of hiding
+    ui->sampleCpuCheckBox->hide();
+    ui->sampleCpuLabel->hide();
+    ui->offCpuCheckBox->hide();
+    ui->offCpuLabel->hide();
+    ui->elevatePrivilegesLabel->hide();
+    ui->elevatePrivilegesCheckBox->hide();
 }
 
 RecordPage::~RecordPage() = default;
@@ -429,6 +437,7 @@ void RecordPage::onStartRecordingButtonClicked(bool checked)
                          customOptions, ui->perfParams);
         perfOptions += KShell::splitArgs(customOptions);
 
+        /* FIXME: detect dynamically
         const bool offCpuProfilingEnabled = ui->offCpuCheckBox->isChecked();
         if (offCpuProfilingEnabled) {
             if (eventType.isEmpty()) {
@@ -451,6 +460,8 @@ void RecordPage::onStartRecordingButtonClicked(bool checked)
             config().writeEntry(QStringLiteral("elevatePrivileges"), elevatePrivileges);
             config().writeEntry(QStringLiteral("sampleCpu"), sampleCpuEnabled);
         }
+        */
+        const bool elevatePrivileges = false;
 
         const int mmapPages = ui->mmapPagesSpinBox->value();
         const int mmapPagesUnit = ui->mmapPagesUnitComboBox->currentIndex();
