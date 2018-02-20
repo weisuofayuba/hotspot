@@ -34,6 +34,7 @@
 #include <QStandardPaths>
 #include <QTimer>
 #include <QTemporaryFile>
+#include <QProcessEnvironment>
 
 #include <csignal>
 
@@ -41,6 +42,18 @@
 #include <KWindowSystem>
 
 #include "util.h"
+
+namespace {
+// FIXME: detect AppImage, only do it then
+//        only remove the lib path that's used by the AppImage, leave others if they exist
+void sanitizeEnvironment(QProcess* process)
+{
+    auto env = QProcessEnvironment::systemEnvironment();
+    const auto libPath = QStringLiteral("LD_LIBRARY_PATH");
+    env.remove(libPath);
+    process->setProcessEnvironment(env);
+}
+}
 
 PerfRecord::PerfRecord(QObject* parent)
     : QObject(parent)
@@ -104,6 +117,7 @@ void PerfRecord::startRecording(bool elevatePrivileges, const QStringList &perfO
             m_elevatePrivilegesProcess->deleteLater();
         }
         m_elevatePrivilegesProcess = new QProcess(this);
+        sanitizeEnvironment(m_elevatePrivilegesProcess);
         m_elevatePrivilegesProcess->setProcessChannelMode(QProcess::ForwardedChannels);
 
         // I/O redirection of client scripts launched by kdesu & friends doesn't work, i.e. no data can be read...
@@ -171,6 +185,7 @@ void PerfRecord::startRecording(const QStringList &perfOptions, const QString &o
         m_perfRecordProcess->deleteLater();
     }
     m_perfRecordProcess = new QProcess(this);
+    sanitizeEnvironment(m_perfRecordProcess);
     m_perfRecordProcess->setProcessChannelMode(QProcess::MergedChannels);
 
     QFileInfo outputFileInfo(outputPath);
