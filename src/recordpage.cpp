@@ -217,8 +217,9 @@ RecordPage::RecordPage(QWidget *parent)
                                     tr("Launch Application"), QVariant::fromValue(LaunchApplication));
     ui->recordTypeComboBox->addItem(QIcon::fromTheme(QStringLiteral("run-install")),
                                     tr("Attach To Process(es)"), QVariant::fromValue(AttachToProcess));
-    ui->recordTypeComboBox->addItem(QIcon::fromTheme(QStringLiteral("run-build-install-root")),
-                                    tr("Profile System"), QVariant::fromValue(ProfileSystem));
+    // FIXME: enable when we can properly elevate privileges from the appimage
+//     ui->recordTypeComboBox->addItem(QIcon::fromTheme(QStringLiteral("run-build-install-root")),
+//                                     tr("Profile System"), QVariant::fromValue(ProfileSystem));
     connect(ui->recordTypeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
             this, &RecordPage::updateRecordType);
     updateRecordType();
