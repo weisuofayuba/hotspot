@@ -51,6 +51,10 @@ int main(int argc, char** argv)
     qRegisterMetaType<Data::CallerCalleeResults>();
     qRegisterMetaType<Data::EventResults>();
 
+    // FIXME: only do that for the AppImage
+    QIcon::setThemeSearchPaths({app.applicationDirPath() + QLatin1String("/../share/icons/")});
+    QIcon::setThemeName(QStringLiteral("breeze"));
+
     QCommandLineParser parser;
     parser.setApplicationDescription(QStringLiteral("Linux perf GUI for performance analysis."));
     parser.addHelpOption();
