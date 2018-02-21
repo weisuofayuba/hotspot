@@ -145,5 +145,9 @@ int main(int argc, char** argv)
         window->show();
     }
 
+    // FIXME: only cleanup the environment when we are running from within the AppImage
+    //        and only remove the AppImage path then
+    qunsetenv("LD_LIBRARY_PATH");
+
     return app.exec();
 }
