@@ -407,20 +407,19 @@ RecordPage::RecordPage(QWidget* parent)
 
     perfRecordChanged();
 
-    ui->remoteTargetComboBox->addItem(QStringLiteral("localhost"));
-    ui->remoteTargetComboBox->addItem(QStringLiteral("remote test 1"));
+    const auto sshPath = QStandardPaths::findExecutable(QLatin1String("ssh"));
+    ui->remoteTargetGroup->setVisible(!sshPath.isEmpty());
+
+    onRemoteDevicesChanged();
 
     connect(ui->remoteTargetComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this,
             [this, perfRecordChanged](int index) {
                 if (index == 0) {
                     m_perfRecord = new PerfRecord(this);
-                    qDebug() << "PerfRecord";
                 } else {
                     auto recordSsh = new PerfRecordSSH(this);
-                    // TODO: this
-                    // recordSsh->setHostname();
+                    recordSsh->setDeviceName(ui->remoteTargetComboBox->currentText());
                     m_perfRecord = recordSsh;
-                    qDebug() << "PerfRecordSSH";
                 }
                 perfRecordChanged();
             });
@@ -822,5 +821,19 @@ void RecordPage::updateOffCpuCheckboxState()
         ui->offCpuCheckBox->setChecked(false);
     } else {
         ui->offCpuCheckBox->setChecked(config().readEntry(QStringLiteral("offCpuProfiling"), false));
+    }
+}
+
+void RecordPage::onRemoteDevicesChanged()
+{
+    ui->remoteTargetComboBox->clear();
+    ui->remoteTargetComboBox->addItem(QStringLiteral("localhost"));
+
+    const auto deviceConfig = KSharedConfig::openConfig()->group("devices");
+    auto t = deviceConfig.groupList();
+    for (const auto& device : deviceConfig.groupList()) {
+        if (deviceConfig.hasGroup(device)) {
+            ui->remoteTargetComboBox->addItem(device);
+        }
     }
 }
