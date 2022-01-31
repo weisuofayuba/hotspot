@@ -76,7 +76,7 @@
 4294857  4188c9:	c5 f9 28 c1          	vmovapd %xmm1,%xmm0
 4294861  4188cd:	5b                   	pop    %rbx
 4294862  4188ce:	5d                   	pop    %rbp
-4294863  4188cf:	c3                   	ret    
+4294863  4188cf:	c3                   	retq   
 4294864  4188d0:	3d fc 68 03 40       	cmp    $0x400368fc,%eax
 4294869  4188d5:	0f 8f 25 01 00 00    	jg     418a00 <__cos_fma+0x270>
 4294875  4188db:	c5 fa 7e 2d dd 1b 08 	vmovq  0x81bdd(%rip),%xmm5        # 49a4c0 <conversion_rate+0xa8>
@@ -145,7 +145,7 @@
 4295143  4189e7:	c5 c9 55 f2          	vandnpd %xmm2,%xmm6,%xmm6
 4295147  4189eb:	c5 c9 56 f7          	vorpd  %xmm7,%xmm6,%xmm6
 4295151  4189ef:	c5 f9 28 ce          	vmovapd %xmm6,%xmm1
-4295155  4189f3:	e9 b0 fe ff ff       	jmp    4188a8 <__cos_fma+0x118>
+4295155  4189f3:	e9 b0 fe ff ff       	jmpq   4188a8 <__cos_fma+0x118>
 4295160  4189f8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
 4295167  4189ff:	00 
 4295168  418a00:	3d fa 21 99 41       	cmp    $0x419921fa,%eax
@@ -240,7 +240,7 @@
 4295544  418b78:	0f 84 2a fd ff ff    	je     4188a8 <__cos_fma+0x118>
 4295550  418b7e:	c5 f1 57 0d 4a 19 08 	vxorpd 0x8194a(%rip),%xmm1,%xmm1        # 49a4d0 <conversion_rate+0xb8>
 4295557  418b85:	00 
-4295558  418b86:	e9 1d fd ff ff       	jmp    4188a8 <__cos_fma+0x118>
+4295558  418b86:	e9 1d fd ff ff       	jmpq   4188a8 <__cos_fma+0x118>
 4295563  418b8b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
 4295568  418b90:	c5 fb 10 0d 08 18 08 	vmovsd 0x81808(%rip),%xmm1        # 49a3a0 <mp1+0x20>
 4295575  418b97:	00 
@@ -251,13 +251,13 @@
 4295595  418bab:	09 c3                	or     %eax,%ebx
 4295597  418bad:	89 5c 24 04          	mov    %ebx,0x4(%rsp)
 4295601  418bb1:	c5 f8 ae 54 24 04    	vldmxcsr 0x4(%rsp)
-4295607  418bb7:	e9 f5 fc ff ff       	jmp    4188b1 <__cos_fma+0x121>
+4295607  418bb7:	e9 f5 fc ff ff       	jmpq   4188b1 <__cos_fma+0x121>
 4295612  418bbc:	0f 1f 40 00          	nopl   0x0(%rax)
 4295616  418bc0:	c5 f8 ae 54 24 10    	vldmxcsr 0x10(%rsp)
 4295622  418bc6:	3d ff ff 3f 3e       	cmp    $0x3e3fffff,%eax
 4295627  418bcb:	7e c3                	jle    418b90 <__cos_fma+0x400>
 4295629  418bcd:	bd 01 00 00 00       	mov    $0x1,%ebp
-4295634  418bd2:	e9 11 fc ff ff       	jmp    4187e8 <__cos_fma+0x58>
+4295634  418bd2:	e9 11 fc ff ff       	jmpq   4187e8 <__cos_fma+0x58>
 4295639  418bd7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
 4295646  418bde:	00 00 
 4295648  418be0:	3d ff ff ef 7f       	cmp    $0x7fefffff,%eax
@@ -265,10 +265,10 @@
 4295659  418beb:	3d 00 00 f0 7f       	cmp    $0x7ff00000,%eax
 4295664  418bf0:	0f 84 1a 02 00 00    	je     418e10 <__cos_fma+0x680>
 4295670  418bf6:	c5 fb 5e c8          	vdivsd %xmm0,%xmm0,%xmm1
-4295674  418bfa:	e9 a9 fc ff ff       	jmp    4188a8 <__cos_fma+0x118>
+4295674  418bfa:	e9 a9 fc ff ff       	jmpq   4188a8 <__cos_fma+0x118>
 4295679  418bff:	90                   	nop
 4295680  418c00:	c5 f9 57 c6          	vxorpd %xmm6,%xmm0,%xmm0
-4295684  418c04:	e9 3a fd ff ff       	jmp    418943 <__cos_fma+0x1b3>
+4295684  418c04:	e9 3a fd ff ff       	jmpq   418943 <__cos_fma+0x1b3>
 4295689  418c09:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
 4295696  418c10:	c5 d9 57 e4          	vxorpd %xmm4,%xmm4,%xmm4
 4295700  418c14:	c5 f9 28 e9          	vmovapd %xmm1,%xmm5
@@ -312,12 +312,12 @@
 4295858  418cb2:	c4 e2 f9 9d d1       	vfnmadd132sd %xmm1,%xmm0,%xmm2
 4295863  418cb7:	c4 e2 e1 bd 14 c2    	vfnmadd231sd (%rdx,%rax,8),%xmm3,%xmm2
 4295869  418cbd:	c5 f3 58 ca          	vaddsd %xmm2,%xmm1,%xmm1
-4295873  418cc1:	e9 af fe ff ff       	jmp    418b75 <__cos_fma+0x3e5>
-4295878  418cc6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+4295873  418cc1:	e9 af fe ff ff       	jmpq   418b75 <__cos_fma+0x3e5>
+4295878  418cc6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
 4295885  418ccd:	00 00 00 
 4295888  418cd0:	48 8d 74 24 10       	lea    0x10(%rsp),%rsi
 4295893  418cd5:	48 8d 7c 24 08       	lea    0x8(%rsp),%rdi
-4295898  418cda:	e8 e1 ed ff ff       	call   417ac0 <__branred>
+4295898  418cda:	e8 e1 ed ff ff       	callq  417ac0 <__branred>
 4295903  418cdf:	c5 fb 10 5c 24 10    	vmovsd 0x10(%rsp),%xmm3
 4295909  418ce5:	c5 fb 10 54 24 08    	vmovsd 0x8(%rsp),%xmm2
 4295915  418ceb:	8d 48 01             	lea    0x1(%rax),%ecx
@@ -368,7 +368,7 @@
 4296100  418da4:	c4 e2 e9 bd c1       	vfnmadd231sd %xmm1,%xmm2,%xmm0
 4296105  418da9:	c4 e2 e1 bd 04 c2    	vfnmadd231sd (%rdx,%rax,8),%xmm3,%xmm0
 4296111  418daf:	c5 f3 58 c8          	vaddsd %xmm0,%xmm1,%xmm1
-4296115  418db3:	e9 bd fd ff ff       	jmp    418b75 <__cos_fma+0x3e5>
+4296115  418db3:	e9 bd fd ff ff       	jmpq   418b75 <__cos_fma+0x3e5>
 4296120  418db8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
 4296127  418dbf:	00 
 4296128  418dc0:	c5 f3 59 d9          	vmulsd %xmm1,%xmm1,%xmm3
@@ -387,14 +387,14 @@
 4296184  418df8:	c4 e2 d9 9b d1       	vfmsub132sd %xmm1,%xmm4,%xmm2
 4296189  418dfd:	c4 e2 e1 b9 c2       	vfmadd231sd %xmm2,%xmm3,%xmm0
 4296194  418e02:	c5 f3 58 c8          	vaddsd %xmm0,%xmm1,%xmm1
-4296198  418e06:	e9 9d fa ff ff       	jmp    4188a8 <__cos_fma+0x118>
+4296198  418e06:	e9 9d fa ff ff       	jmpq   4188a8 <__cos_fma+0x118>
 4296203  418e0b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
 4296208  418e10:	c4 e1 f9 7e c0       	vmovq  %xmm0,%rax
 4296213  418e15:	85 c0                	test   %eax,%eax
 4296215  418e17:	0f 85 d9 fd ff ff    	jne    418bf6 <__cos_fma+0x466>
 4296221  418e1d:	48 c7 c0 c0 ff ff ff 	mov    $0xffffffffffffffc0,%rax
 4296228  418e24:	64 c7 00 21 00 00 00 	movl   $0x21,%fs:(%rax)
-4296235  418e2b:	e9 c6 fd ff ff       	jmp    418bf6 <__cos_fma+0x466>
+4296235  418e2b:	e9 c6 fd ff ff       	jmpq   418bf6 <__cos_fma+0x466>
 4296240  418e30:	c5 eb 59 da          	vmulsd %xmm2,%xmm2,%xmm3
 4296244  418e34:	c5 fb 10 05 d4 14 08 	vmovsd 0x814d4(%rip),%xmm0        # 49a310 <hp1+0x20>
 4296251  418e3b:	00 
@@ -411,7 +411,7 @@
 4296296  418e68:	c4 e2 d9 9b c2       	vfmsub132sd %xmm2,%xmm4,%xmm0
 4296301  418e6d:	c4 e2 e1 b9 c8       	vfmadd231sd %xmm0,%xmm3,%xmm1
 4296306  418e72:	c5 f3 58 ca          	vaddsd %xmm2,%xmm1,%xmm1
-4296310  418e76:	e9 fa fc ff ff       	jmp    418b75 <__cos_fma+0x3e5>
+4296310  418e76:	e9 fa fc ff ff       	jmpq   418b75 <__cos_fma+0x3e5>
 4296315  418e7b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
 4296320  418e80:	c5 fa 7e 2d 38 16 08 	vmovq  0x81638(%rip),%xmm5        # 49a4c0 <conversion_rate+0xa8>
 4296327  418e87:	00 
@@ -469,7 +469,7 @@
 4296540  418f5c:	c5 c9 55 f0          	vandnpd %xmm0,%xmm6,%xmm6
 4296544  418f60:	c5 c9 56 f7          	vorpd  %xmm7,%xmm6,%xmm6
 4296548  418f64:	c5 f9 28 ce          	vmovapd %xmm6,%xmm1
-4296552  418f68:	e9 08 fc ff ff       	jmp    418b75 <__cos_fma+0x3e5>
+4296552  418f68:	e9 08 fc ff ff       	jmpq   418b75 <__cos_fma+0x3e5>
 4296557  418f6d:	c5 eb 59 ca          	vmulsd %xmm2,%xmm2,%xmm1
 4296561  418f71:	c5 fb 10 05 97 13 08 	vmovsd 0x81397(%rip),%xmm0        # 49a310 <hp1+0x20>
 4296568  418f78:	00 
@@ -486,5 +486,5 @@
 4296613  418fa5:	c4 e2 d9 9b c2       	vfmsub132sd %xmm2,%xmm4,%xmm0
 4296618  418faa:	c4 e2 e1 99 c8       	vfmadd132sd %xmm0,%xmm3,%xmm1
 4296623  418faf:	c5 eb 58 c9          	vaddsd %xmm1,%xmm2,%xmm1
-4296627  418fb3:	e9 bd fb ff ff       	jmp    418b75 <__cos_fma+0x3e5>
-4296632  418fb8:	e8 a3 57 04 00       	call   45e760 <__stack_chk_fail>
+4296627  418fb3:	e9 bd fb ff ff       	jmpq   418b75 <__cos_fma+0x3e5>
+4296632  418fb8:	e8 a3 57 04 00       	callq  45e760 <__stack_chk_fail>

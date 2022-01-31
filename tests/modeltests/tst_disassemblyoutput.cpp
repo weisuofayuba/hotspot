@@ -48,7 +48,6 @@ private slots:
         symbol.actualPath = actualBinaryFile;
 
         QVERIFY(!actualBinaryFile.isEmpty() && QFile::exists(actualBinaryFile));
-        const auto expectedOutputFile = actualBinaryFile + ".expected.txt";
         const auto actualOutputFile = actualBinaryFile + ".actual.txt";
 
         QFile actual(actualOutputFile);
@@ -67,6 +66,7 @@ private slots:
             QVERIFY(actual.open(QIODevice::ReadOnly | QIODevice::Text));
             actualText = QString::fromUtf8(actual.readAll());
         }
+        const auto expectedOutputFile = actualBinaryFile + (actualText.contains("jmpq") ? ".jmpq" : "") +  ".expected.txt";
 
         QString expectedText;
         {
